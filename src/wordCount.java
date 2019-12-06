@@ -219,7 +219,7 @@ public class wordCount extends javax.swing.JFrame {
             }
             result.add(String.format("%s : %d \n", word, counter));
 
-            String query = ("INSERT INTO `up`( `word`, `count`) VALUES ('" + word + "','" + counter + "')");
+            String query = ("INSERT INTO `uc`( `word`, `count`) VALUES ('" + word + "','" + counter + "')");
             try {
                 String myDriver = "com.mysql.jdbc.Driver";
                 String myUrl = "jdbc:mysql://localhost/universities";
