@@ -53,9 +53,9 @@ public class wordCount extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
-        wordCount.setBackground(new java.awt.Color(102, 102, 102));
+        wordCount.setBackground(new java.awt.Color(255, 255, 51));
         wordCount.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Algerian", 1, 14))); // NOI18N
 
         jLabel1.setText("Write a Sentence:");
@@ -66,6 +66,11 @@ public class wordCount extends javax.swing.JFrame {
         show.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showMouseClicked(evt);
+            }
+        });
+        show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showActionPerformed(evt);
             }
         });
 
@@ -116,7 +121,7 @@ public class wordCount extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(204, 0, 102));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 51));
 
         jLabel2.setText("Counting Word:");
 
@@ -147,7 +152,7 @@ public class wordCount extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 204, 204));
         jLabel3.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel3.setText("=^^= JMHY Word CountER =^^=");
+        jLabel3.setText("word counter");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -193,19 +198,20 @@ public class wordCount extends javax.swing.JFrame {
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
         String input = sentence.getText().toLowerCase();//("[-+^]*", " ")
         String str = input.replaceAll("\\<.*?\\>", "").replaceAll("\\s+", " ").replaceAll("\\d", "").replaceAll("\\{.*?}", "").replaceAll("\\p{P}\\{L}]", "")
-                .replaceAll("[\\(\\)\\[\\]\\{\\}\\<\\>]", "").replaceAll("[^a-zA-Z0-9 -]", "").replaceAll("/Java(Script)/","");
+                .replaceAll("[\\(\\)\\[\\]\\{\\}\\<\\>]", "").replaceAll("[^a-zA-Z0-9 -] ", "").replaceAll("/Java(Script)/","");
         display.setText(str);
         int counter = 0;
         String output = "";
         List<String> uniqueWords = new ArrayList();
         String[] allWords = str.split(" ");
         List<String> result = new ArrayList();
-
+        
         for (String word : allWords) {//getting the unique words
             if (!uniqueWords.contains(word)) {
                 uniqueWords.add(word);
             }
         }
+        
         boolean first = true;
         for (String word : uniqueWords) {//scan the unique words
             if (first){
@@ -219,7 +225,7 @@ public class wordCount extends javax.swing.JFrame {
             }
             result.add(String.format("%s : %d \n", word, counter));
 
-            String query = ("INSERT INTO `uc`( `word`, `count`) VALUES ('" + word + "','" + counter + "')");
+            String query = ("INSERT INTO `uc`( `word`, `counter`) VALUES ('" + word + "','" + counter + "')");
             try {
                 String myDriver = "com.mysql.jdbc.Driver";
                 String myUrl = "jdbc:mysql://localhost/universities";
@@ -250,6 +256,10 @@ public class wordCount extends javax.swing.JFrame {
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_clearActionPerformed
+
+    private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showActionPerformed
 
     /**
      * @param args the command line arguments
